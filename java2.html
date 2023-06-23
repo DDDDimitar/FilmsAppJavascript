@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconect" href="https://fonts.googleapis.com">
+    <link rel="preconect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+           /* margin: 0;
+            padding: 0;*/
+           
+        }
+        body{
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+        header{
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+           
+             
+
+        }
+        .search{
+            background-color: transparent;
+            border: 2px solid white;
+            border-radius: 50px;
+            font-size: 1rem;
+            padding: 1rem;
+            color: white;
+            text-align: center;
+            margin: 1rem;
+
+
+
+
+
+        }
+        
+        .search::placeholder{
+            color: orange;
+        }
+        .search::focus{
+            outline: 1px;
+        }
+        .container{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .card h1{
+           text-align: center;
+        }
+        p{
+            color: orange;
+            font-size: 1.5rem;
+        }
+        .card img{
+            width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+
+        }
+        .card{
+            width: 20%;
+            margin: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid orange;
+           text-align: center;
+          display: block;
+           color: white;
+        }
+
+
+        .row{
+            display: flex;
+            flex-wrap :wrap;
+            justify-content: center;
+            padding: 0.5rem;
+            width: 1280px !!important;
+
+
+       }
+
+
+        .no-result{
+            text-align: center;
+            color: white;
+
+        }
+        input{
+            text-align: center;
+            padding: 1rem;
+        }
+        .change-mode{
+            background-color: white;
+            color: black;
+        }
+        label{
+         color: orange;
+        }
+        button{
+            
+            border: 2px solid white;
+
+          /*  background-color: white;*/
+            color: white;
+            background: transparent;
+            border-radius: 100px;
+            padding: 0.5rem;
+            margin: 0.5rem;
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded',(e)=>{
+
+            let data=[
+            {
+                "moviename":"Avengers",
+                "poster": "https://m.media-amazon.com/images/I/81lMrc8bBRL._AC_UY327_FMwebp_QL65_.jpg",
+                "year":"2012",
+                "overview":"Film about a group of superheroes who join forces to  battle their ennemies and save the world.",
+                "rating":"9.7"
+                 
+
+
+
+            },
+            
+            {
+                "moviename":"Joker",
+                "poster": "https://m.media-amazon.com/images/I/91Jf1PV8TlL._AC_UY327_FMwebp_QL65_.jpg",
+                "year":"2019",
+                "overview":"A psyhological thriller film that explores the origin story of the iconic DC Comics villain,the Joker.",
+                "rating":"9.6"
+                 
+
+
+
+            },
+            {
+                "moviename":"Mad Max",
+                "poster": "https://m.media-amazon.com/images/I/91Pw9ZFq3gL._AC_UY327_FMwebp_QL65_.jpg",
+                "year":"1995",
+                "overview":"An action-packed post apocalyptic film set in a dystopian future,where a drifter becomes a reluctant hero in a battle for survival",
+                "rating":"9.6"
+                 
+
+
+
+            },
+            {
+            "moviename": "The Shawshank Redemption",
+            "poster": "https://m.media-amazon.com/images/I/918criz7VOL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "1994",
+            "overview": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+            "rating": "9.3"
+          },
+          {
+            "moviename": "The Godfather",
+            "poster": "https://m.media-amazon.com/images/I/714ZOEiVNtL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "1972",
+            "overview": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+            "rating": "9.2"
+          },
+          {
+            "moviename": "The Dark Knight",
+            "poster": "https://m.media-amazon.com/images/I/91ebheNmoUL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2008",
+            "overview": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+            "rating": "9.0"
+          },
+          {
+            "moviename": "Pulp Fiction",
+            "poster": "https://m.media-amazon.com/images/I/81wrPiZFKIL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "1994",
+            "overview": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+            "rating": "8.9"
+          },
+          {
+            "moviename": "Fight Club",
+            "poster": "https://m.media-amazon.com/images/I/81DH1ACZaSL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "1999",
+            "overview": "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.",
+            "rating": "8.8"
+          },
+          {
+            "moviename": "Inception",
+            "poster": "https://m.media-amazon.com/images/I/81DLp4pu+JL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2010",
+            "overview": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+            "rating": "8.7"
+          },
+          {
+            "moviename": "The Matrix",
+            "poster": "https://m.media-amazon.com/images/I/91XbEpmQ4cL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "1999",
+            "overview": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+            "rating": "8.7"
+          },
+          {
+            "moviename": "Forrest Gump",
+            "poster": "https://m.media-amazon.com/images/I/71nGjvTg15L._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "1994",
+            "overview": "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.",
+            "rating": "8.8"
+          },
+          {
+            "moviename": "The Lord of the Rings: The Fellowship of the Ring",
+            "poster": "https://m.media-amazon.com/images/I/61THa3LMb6L._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2001",
+            "overview": "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.",
+            "rating": "8.8"
+          },
+           {
+            "moviename": "The Lion King",
+            "poster": "https://m.media-amazon.com/images/I/81aLWmKrNVL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "1994",
+            "overview": "A young lion prince flees his kingdom after the murder of his father, while learning the true meaning of responsibility and bravery.",
+            "rating": "8.5"
+          },
+          {
+            "moviename": "Titanic",
+            "poster": "https://m.media-amazon.com/images/I/610Jiy1CKtL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "1997",
+            "overview": "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.",
+            "rating": "7.8"
+          },
+          {
+            "moviename": "The Dark Knight Rises",
+            "poster": "https://m.media-amazon.com/images/I/81anyi8IkDS._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2012",
+            "overview": "Eight years after the Joker's reign of anarchy, Batman, with the help of the enigmatic Catwoman, is forced from his exile to save Gotham City from the brutal guerrilla terrorist Bane.",
+            "rating": "8.4"
+          },
+          {
+            "moviename": "Interstellar",
+            "poster": "https://m.media-amazon.com/images/I/71NbodPKj0L._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2014",
+            "overview": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+            "rating": "8.6"
+          },
+          {
+            "moviename": "Inglourious Basterds",
+            "poster": "https://m.media-amazon.com/images/I/71MEGJzgwoL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2009",
+            "overview": "In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner's vengeful plans for the same.",
+            "rating": "8.3"
+          },
+          {
+            "moviename": "The Prestige",
+            "poster": "https://m.media-amazon.com/images/I/71rFf5M0rSL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2006",
+            "overview": "After a tragic accident, two stage magicians engage in a battle to create the ultimate illusion while sacrificing everything they have to outwit each other.",
+            "rating": "8.5"
+          },
+          {
+            "moviename": "The Departed",
+            "poster": "https://m.media-amazon.com/images/I/91bx-a-lWAL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2006",
+            "overview": "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in South Boston.",
+            "rating": "8.5"
+          },
+          {
+            "moviename": "The Social Network",
+            "poster": "https://m.media-amazon.com/images/I/91kK9-VMuHL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2010",
+            "overview": "As Harvard student Mark Zuckerberg creates the social networking site that would become known as Facebook, he is sued by the twins who claimed he stole their idea, and by the co-founder who was later squeezed out of the business.",
+            "rating": "7.7"
+          },
+          {
+            "moviename": "Whiplash",
+            "poster": "https://m.media-amazon.com/images/I/81JmHeoqIaL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2014",
+            "overview": "A promising young drummer enrolls at a cut-throat music conservatory where his dreams of greatness are mentored by an instructor who will stop at nothing to realize a student's potential.",
+            "rating": "8.5"
+          },
+          {
+            "moviename": "Avatar",
+            "poster": "https://m.media-amazon.com/images/I/81SLoj0EmAL._AC_UY218_.jpg",
+             "year": "2009",
+            "overview": "A film set in the mid-22nd century, where humans are colonizing the planet Pandora and clash with the indigenous Na'vi population.",
+            "rating": "7.8"
+          },
+          {
+          "moviename": "Back to the Future",
+          "poster": "https://m.media-amazon.com/images/I/91PrgkkKpfL._AC_UY218_.jpg",
+          "year": "1985",
+          "overview": "A teenager named Marty McFly is accidentally sent back in time from 1985 to 1955 in a DeLorean time machine invented by his eccentric friend, Doc Brown. He must make sure his parents meet and fall in love to ensure his own existence in the future.",
+          "rating": "8.5"
+          },
+          {
+            "moviename": "The Great Gatsby",
+            "poster": "https://m.media-amazon.com/images/I/91Sv4uXawlL._AC_UY327_FMwebp_QL65_.jpg",
+            "year": "2013",
+            "overview": "A writer and wall street trader, Nick, finds himself drawn to the past and lifestyle of his millionaire neighbor, Jay Gatsby.",
+            "rating": "7.2"
+          }
+          
+          
+
+            ];
+            let movie = document.querySelectorAll('.card');
+            for(let i=0;i<data.length;i++){
+                movie[i].querySelector("h1").innerText=data[i].moviename;
+                movie[i].querySelector("img").src=data[i].poster;
+                movie[i].querySelector("h2").innerText=data[i].year;
+                 movie[i].querySelector("h3").innerText=data[i].overview;
+                    movie[i].querySelector("p").innerText=data[i].rating;
+                
+
+
+                movie[i].querySelector("h3").style.display='none';
+                // movie[i].querySelector("p").style.display='none';   
+                movie[i].addEventListener('mouseover',(e)=>{
+                 //  movie[i].querySelector("h3").innerText=data[i].overview;
+                //    movie[i].querySelector("p").innerText=data[i].rating;
+
+                 movie[i].querySelector("h3").style.display='flex';
+                 movie[i].querySelector("p").style.display='block';   
+                 });
+
+                 movie[i].addEventListener('mouseout',(e)=>{
+                movie[i].querySelector("h3").style.display='none';
+                 // movie[i].querySelector("p").style.display='none';   
+                // //    movie[i].querySelector("h3").innerText="";
+                //  //   movie[i].querySelector("p").innerText="";
+                 });
+                        }
+            let movies=document.querySelectorAll(".card");  
+            //let searchyear= document.querySelector("#searchbyyear");
+            
+           
+
+
+            
+            // searchyear.addEventListener("input",(e)=>{ 
+            //    if(e.target.value!=""){
+            //    movies.forEach(item=>{
+            //     let year=item.querySelector(".year").innerText;
+            //     if(year==e.target.value) item.style.display='flex';
+            //     else item.style.display='none';
+            //    });
+            //    }else{
+            //     movies.forEach(item=>{
+            //         item.style.display = 'flex';
+                    
+            //     });
+            //    }
+            // });
+
+            // let searchOverview= document.querySelector("#searchbyoverview");
+            // searchOverview.addEventListener("input",(e)=>{ 
+            //     console.log(e.target.value);
+            //    if(e.target.value!=""){
+            //    movies.forEach(item=>{
+            //     let overview=item.querySelector(".overview").innerText.toString();
+            //     console.log(overview);
+            //     console.log(e.target.value);
+            //     console.log(e.target.value.includes(overview));
+            //     if(overview.toLowerCase().includes(e.target.value.toLowerCase())) item.style.display='flex';
+            //     else item.style.display='none';
+            //    });
+            //    }else{
+            //     movies.forEach(item=>{
+            //         item.style.display = 'flex';
+                    
+            //     });
+            //    }
+            // });
+
+            const filter=(e)=>{
+                
+                    let allempty=true;
+                    searchall.forEach(item2=>{
+                        if(item2.value!="")
+                            allempty=false;
+                    });
+
+                    if(allempty){
+                        movies.forEach(item3=>{
+                            item3.style.display='block';
+
+
+                        });
+                    }else{
+                        // if(e.key!="Decimal"){
+                       
+                        movies.forEach(item4=>{
+                            item4.style.display='block';
+
+                                if(item4.querySelector(".year").innerText==searchall[0].value && searchall[0].value!="")
+                                    item4.style.display='block';
+                                else if(item4.querySelector(".year").innerText!=searchall[0].value && searchall[0].value!="")
+                                    item4.style.display='none';
+                                if(item4.querySelector(".overview").innerText.toLowerCase().includes(searchall[1].value.toLowerCase()) && searchall[1].value !="" && item4.style.display=='block'){
+                                   // item4.style.display='flex';
+                                    console.log("a");
+                                }
+                                else if(!item4.querySelector(".overview").innerText.toLowerCase().includes(searchall[1].value.toLowerCase()) && searchall[1].value !="" && item4.style.display=='block'){
+                                    item4.style.display='none';
+                                    
+                                }
+                                if(item4.querySelector("h1").innerText.toLowerCase().includes(searchall[2].value.toLowerCase()) && searchall[2].value !="" && item4.style.display=='block'){
+                                   // item4.style.display='flex';
+                                    
+                                }
+                                else if(!item4.querySelector("h1").innerText.toLowerCase().includes(searchall[2].value.toLowerCase()) && searchall[2].value !="" && item4.style.display=='block'){
+                                    item4.style.display='none';
+                                    
+                                }
+                                 movies.forEach(item4=>{
+                             let radiobuttons=document.querySelectorAll('.radio');
+                           
+                            if(radiobuttons[0].checked){
+                              // console.log(parseFloat(item4.querySelector(".rating").innerHTML)>parseFloat(searchall[3].value));
+                               //console.log(searchall[3].value !="")
+                               //console.log(item4.style.display!='none');
+                                if(parseFloat(item4.querySelector(".rating").innerHTML)>=parseFloat(searchall[3].value) && searchall[3].value !="" && item4.style.display!='none'){
+                                    console.log("y");
+                                item4.style.display='block';
+                                
+                                }
+                                else if(parseFloat(item4.querySelector(".rating").innerHTML)<parseFloat(searchall[3].value) && searchall[3].value !="" && item4.style.display!='none'){
+                                    item4.style.display='none';
+                                     console.log("n");
+                                
+                                }
+                            }
+                            else if(radiobuttons[1].checked){
+                              // console.log(parseFloat(item4.querySelector(".rating").innerHTML)>parseFloat(searchall[3].value));
+                               //console.log(searchall[3].value !="")
+                               //console.log(item4.style.display!='none');
+                                console.log(parseFloat(item4.querySelector(".rating").innerHTML)==parseFloat(searchall[3].value));
+                                if(parseFloat(item4.querySelector(".rating").innerHTML)<=parseFloat(searchall[3].value) && searchall[3].value !="" && item4.style.display!='none'){
+                                    console.log("y");
+                                item4.style.display='block';
+                                
+                                }
+                                else if(parseFloat(item4.querySelector(".rating").innerHTML)>parseFloat(searchall[3].value) && searchall[3].value !="" && item4.style.display!='none'){
+                                    item4.style.display='none';
+                                     console.log("n");
+                                
+                                }
+                            }
+
+                            });
+                                
+
+
+
+                            });
+                           movies[0].parentNode.style.width='100%';
+                        // }
+                    }
+
+                
+
+               
+                
+
+
+            }
+            let searchall=document.querySelectorAll(".search");
+            searchall.forEach(item=>{
+                item.addEventListener("keyup",(e)=>{
+                filter(e);
+                });
+            });
+            let radiobuttons =document.querySelectorAll('.radio');
+            console.log(radiobuttons);
+            radiobuttons.forEach(item=>{
+
+                item.addEventListener("change",(e)=>{
+                filter(e);
+                });
+            });
+            
+
+
+            let btn = document.querySelector('#toggleBtn');
+              // document.getElementById('toggleBtn').style.background = 'white';
+              //           document.getElementById('toggleBtn').style.color = 'black';
+              //            document.getElementById('toggleBtn').style.border = '1px solid black';
+                        // btn.style.background = 'white';
+                        btn.style.color = 'white';
+                         btn.style.border = '2px solid white';
+               btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    e.target.classList.toggle('change-mode');
+
+                    if(document.body.classList.toggle('change-mode')){
+                        e.target.innerHTML = 'Change Mode';
+                        btn.style.border = '2px solid black';
+                        btn.style.color='black';
+                          
+                        document.querySelectorAll('.card').forEach(item=>{
+
+                            item.style.color='black';
+                            item.style.border=' 2px solid black';
+                    });
+                        document.querySelectorAll('.search').forEach(item=>{
+
+
+                            item.style.color='black';
+                            item.style.border=' 2px solid black';
+
+                    });
+                        document.querySelectorAll('.radio').forEach(item=>{
+
+                            item.style.color='black';
+
+                    });
+                         
+                    } else {
+                        e.target.innerHTML = 'Change Mode';
+                            btn.style.color = 'white';
+                            btn.style.border = '2px solid white';
+                         
+                         document.querySelectorAll('.card').forEach(item=>{
+                            console.log(item);
+
+                            item.style.color= 'white';
+                            item.style.border=' 1px solid orange';
+
+                    });
+
+                         document.querySelectorAll('.search').forEach(item=>{
+
+                            item.style.color= 'white';
+                            item.style.border=' 2px solid white';
+
+                        console.log(item);
+
+                       
+                    });
+                          document.querySelectorAll('.radio').forEach(item=>{
+
+                            item.style.color= 'white';
+
+                            console.log(item);
+
+                       
+                    });
+                        //    document.getElementById('toggleBtn').style.background = 'black';
+                        // document.getElementById('toggleBtn').style.color = 'white';
+                        // document.getElementById('toggleBtn').style.border = '1px solid white';
+
+                    }
+                });
+
+
+
+
+
+
+        });
+    </script>
+</head>
+<body>
+    <header>
+    <form action="" id="form">
+        <input type="text" class="search" id="searchbyyear" placeholder="Търси по година">
+    </form>
+    <form action="" id="form">
+        <input type="text" class="search" id="searchbyoverview" placeholder="Търси по описание">
+    </form>
+    <form action="" id="form">
+        <input type="text" class="search" id="searchbyname" placeholder="Търси по име">
+    </form>
+     <form action="" id="form">
+        <input type="text" class="search" id="searchbyrating" placeholder="Търси по рейтинг">
+        
+        <input type="radio" name="Rating" class="radio" id="Greater" >
+        <label for="Greater">Минимален</label>
+        
+        <input type="radio" name="Rating" class="radio" id="Lesser" >
+        <label for="Lesser">Максимален</label>
+        
+    </form>
+    <button id="toggleBtn">Change Mode</button>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class=rating></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+            <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+             <div class="col-auto card">
+                <h1></h1>
+                <img src="" alt="" class="">
+                <span class="rastoqnie"></span>
+                <h2 class="year"></h2>
+                <h3 class=overview></h3>
+                <p class="rating"></p>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</body>
+</html>
